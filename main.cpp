@@ -8,7 +8,7 @@
 class DHTNode {
 private:
     std:: unordered_map<std::string, std::string> table;
-    std:: string filename = "dht_data.txt";
+    std:: string filename = "dht_data.csv";
 
     void saveToFile() {
         std::ofstream outFile(filename);
