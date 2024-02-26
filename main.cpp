@@ -1,3 +1,11 @@
+// TODO:
+
+    // How will Lane function in Weave
+
+
+
+
+
 #include <iostream>
 #include <unordered_map>
 #include <string>
@@ -5,7 +13,7 @@
 #include <sstream>
 #include <limits>
 
-class DHTNode {
+class Node {
 private:
     std:: unordered_map<std::string, std::string> table;
     std:: string filename = "dht_data.csv";
@@ -33,11 +41,11 @@ private:
 
 public:
 
-    DHTNode() {
+    Node() {
         loadFromFile();
     }
 
-    ~DHTNode() {
+    ~Node() {
         saveToFile();
     }
     void store(const std::string& key, const std::string& value) {
@@ -66,16 +74,19 @@ public:
         }
     }
 };
+void initializeNetwork();
 
 int main() {
-    DHTNode node;
+    std::cout << "Lane - 2024" << std::endl;
+    initializeNetwork();
+    Node node;
     std::string key, value;
     char choice;
 
     do {
-        std::cout << "\nDHT Node Menu:\n";
+        std::cout << "\nLane Node Menu:\n";
         std::cout << "1. Store key-value pair\n";
-        std::cout << "2. Retrieve vaalue by key\n";
+        std::cout << "2. Retrieve value by key\n";
         std::cout << "3. Display all key-value pairs\n";
         std::cout << "4. Exit\n";
         std::cout << "Enter your choice (1-4): ";
