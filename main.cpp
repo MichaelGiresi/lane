@@ -1,6 +1,15 @@
 // TODO:
 
-    // How will Lane function in Weave
+    // How will Lane function in Weave:
+    // What functionality is required by weave for it to function?
+    // Each phone will be a node on the network. Sending and receiving data.
+
+// 1. Lane must be able to send and receive data. 
+// 2. To join the network, the Node must be verified by other existing nodes.
+// 3. To be able to upload data, the node must go through a security check, to be sure it's data is the same as the other nodes.
+//      if it is not the same, the node can download a fresh copy of data.
+// 4. A node should not have to download the entirely of the network. In terms of Weave, the node should only have to
+//      download the data required to run the application in the user's specific area. 
 
 
 
