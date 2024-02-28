@@ -8,6 +8,18 @@ int main() {
     int listenPort, targetPort;
     std::string targetAddress;
 
+    // Welcome Message
+
+    std::cout << "\n";
+    std::cout << "\n";
+
+    std::cout << R"(##      ####  ##  ## #####    #####  ##  ##    ##  ## ##### ######  ####   #### 
+##     ##  ## ### ## ##       ##  ##  ####     ## ##  ##      ##   ##  ## ##    
+##     ###### ## ### ####     #####    ##      ####   ####    ##   ##  ##  #### 
+##     ##  ## ##  ## ##       ##  ##   ##      ## ##  ##      ##   ##  ##     ##
+###### ##  ## ##  ## #####    #####    ##      ##  ## ##### ######  ####   #### )" << std::endl;
+    std::cout << "\n";
+    std::cout << "\n";
     std::cout << "Enter listen port number for this node: ";
     std::cin >> listenPort;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
