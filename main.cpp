@@ -1,47 +1,38 @@
 #include <iostream>
-#include <string>
-#include <limits> // Include for std::numeric_limits
-#include "networking.h" // Make sure this includes both initializeServer and connectToServer functions
-
-namespace {
-void runServer(int port) {
-    std::cout << "Starting server on port " << port << "...\n";
-    networking::initializeServer(port);
-    std::cout << "Server started. Press enter to exit.\n";
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
-
-void runClient(const std::string& host, int port) {
-    std::cout << "Connecting to server " << host << " on port " << port << "...\n";
-    networking::connectToServer(host, port);
-    std::cout << "Connected to server. Press enter to exit.\n";
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
-}
+#include <thread>
+#include <chrono>
+#include <limits>
+#include "networking.h"
 
 int main() {
-    int port = 8080; // Default port
-    std::string host = "127.0.0.1"; // Default host for client mode
-    
-    std::cout << "Select mode:\n";
-    std::cout << "1. Server\n";
-    std::cout << "2. Client\n";
-    std::cout << "Enter choice (1 or 2): ";
-    int choice;
-    std::cin >> choice;
-    std::cin.ignore(); // Ignore newline character left in the input buffer
+    int listenPort, targetPort;
+    std::string targetAddress;
 
-    switch (choice) {
-        case 1:
-            runServer(port);
-            break;
-        case 2:
-            runClient(host, port);
-            break;
-        default:
-            std::cerr << "Invalid choice. Exiting program.\n";
-            return 1;
+    std::cout << "Enter listen port number for this node: ";
+    std::cin >> listenPort;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    std::cout << "Enter target server address (IP) to connect to (or 'none' to skip): ";
+    getline(std::cin, targetAddress);
+
+    // Start the server in a separate thread
+    std::thread serverThread(networking::startServer, listenPort);
+
+    if (targetAddress != "none") {
+        std::cout << "Enter target server port number to connect to: ";
+        std::cin >> targetPort;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        // Give the server some time to start up
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+
+        // Start the client in a separate thread only if a valid address is provided
+        std::thread clientThread(networking::startClient, targetAddress.c_str(), targetPort);
+        clientThread.join();
     }
+
+    // Wait for the server thread to complete
+    serverThread.join();
 
     return 0;
 }
