@@ -8,7 +8,7 @@ int main() {
     int listenPort, targetPort;
     std::string targetAddress;
 
-    // Welcome Message
+    // Welcome Message for LANE
 
     std::cout << "\n";
     std::cout << "\n";
